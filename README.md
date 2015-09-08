@@ -14,6 +14,9 @@ The intent of this project is to create either an experience or game in three.js
 - As a person who enjoys adventure, I would enjoy being able to explore all types of planets that are always different.
 
 # Wireframe
-![alt image] (http://imgur.com/5CVPknx)
+http://imgur.com/5CVPknx
 
+
+
+#Theme
 * The theme of this project may still change, but the fundamental concept will still be the same
