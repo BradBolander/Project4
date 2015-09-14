@@ -1,12 +1,13 @@
 var mongoose = require('mongoose');
 
 var GalaxySchema = new mongoose.Schema({
-  name: 'string',
-  description: 'string',
-  radius: 'number',
-  particles: 'number',
-  height: 'number',
-  color: 'string'
+  name: String,
+  description: String,
+  radius: Number,
+  particles: Number,
+  height: Number,
+  color: String,
+  likes: Number
 });
 
-module.exports = mongoose.model('Galaxies', GalaxySchema);
+module.exports = mongoose.model('galaxies', GalaxySchema);

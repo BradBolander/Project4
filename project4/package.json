@@ -16,6 +16,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "angular": "^1.4.5",
+    "angular-route": "^1.4.5",
     "ejs": "^2.3.4",
     "mongod": "^1.3.0",
     "mongoose": "^4.1.6"

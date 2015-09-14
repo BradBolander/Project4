@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="Galaxies">
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
     <script type="text/javascript" src="http://threejs.org/build/three.min.js"></script>
@@ -15,28 +18,54 @@
     </div>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <section id="create-form">
-      <h4>New Cloud</h4>
+    <button id="toggle-create">Create</button>
+    <button id="toggle-list">List</button>
+    <section id="create-form" ng-controller="CreateController">
+          <h4>New Cloud</h4>
+        <div class="form-group">
+          <h3>Name</h3>
+          <input ng-model="newGalaxy.name" value="{{ newGalaxy.name }}" type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <h3>Description</h3>
+          <input ng-model="newGalaxy.description" value="{{ newGalaxy.description }}" type="text" class="form-control" id="description" placeholder="Description">
+        </div>
+        <div class="form-group">
+          <h3>Radius</h3>
+          <input ng-model="newGalaxy.radius" value="{{ newGalaxy.radius }}" type="text" class="form-control" id="radius" placeholder="Radius">
+        </div>
+        <div class="form-group">
+          <h3>Particles</h3>
+          <input ng-model="newGalaxy.particles" value="{{ newGalaxy.particles }}" type="text" class="form-control" id="particles" placeholder="Particles">
+        </div>
+        <div class="form-group">
+          <h3>Height</h3>
+          <input ng-model="newGalaxy.height" value="{{ newGalaxy.height }}" type="text" class="form-control" id="height" placeholder="Height">
+        </div>
+        <div class="form-group">
+          <h3>Color</h3>
+          <input ng-model="newGalaxy.color" value="{{ newGalaxy.color }}" type="color" class="form-control" id="color" placeholder="Color">
+        </div>
+        <button ng-click='create()' id='add-galaxy' type="button" class="button">Create</button>
+    </section>
 
-    <div class="form-group">
-      <input type="text" class="form-control" id="name" placeholder="Name">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" id="radius" placeholder="Radius">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" id="color" placeholder="Enter Color">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" id="stars" placeholder="Particle Count">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control" id="brightness" placeholder="FOV">
-    </div>
-    <button id='add-galaxy' type="submit" class="btn btn-default">Create</button>
+    <div ng-controller="ListingController">
 
-</section>
+      <article class="galaxy-list" ng-repeat="galaxy in galaxies">
+        <h3> {{galaxy.name}} </h3>
+        <p> {{galaxy.description}} </p>
+        <h4>Likes</h4><h5>{{galaxy.likes}} </h5>
+        <p ng-click="plusLike($index)"><button type="button" name="button">Like</button></p>
+        <p ng-click="minusLike($index)"><button type="button" name="button">Dislike</button></p>
+        <button ng-click="delete($index)" type="button">Delete</button>
+        <hr>
+      </article>
+
+    </div>
+
+
 <script type="text/javascript" src="/javascripts/galaxyrender.js"></script>
+<script type="text/javascript" src="/javascripts/app.js"></script>
   </body>
 
 </html>

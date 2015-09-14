@@ -7,13 +7,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-
-var Galaxy = require('../models/Galaxies');
+var galaxyModel = require('../models/galaxies');
 
 /* GET */
 router.get('/', function(req, res, next) {
-  console.log(req.body);
-  Galaxy.find(function (err, galaxies) {
+  galaxyModel.find(function (err, galaxies) {
     if (err) return next(err);
     res.json(galaxies);
   });
@@ -22,7 +20,7 @@ router.get('/', function(req, res, next) {
 /* POST */
 router.post('/', function(req, res, next) {
   console.log(req.body);
-  Galaxy.create(req.body, function (err, galaxy) {
+  galaxyModel.create(req.body, function (err, galaxy) {
     if (err) return next(err);
     res.json(galaxy);
   });
@@ -30,7 +28,7 @@ router.post('/', function(req, res, next) {
 
 /* GET */
 router.get('/:id', function(req, res, next) {
-  Galaxy.findById(req.params.id, function (err, galaxy) {
+  galaxyModel.findById(req.params.id, function (err, galaxy) {
     if (err) return next(err);
     res.json(galaxy);
   });
@@ -39,7 +37,7 @@ router.get('/:id', function(req, res, next) {
 /* PUT */
 router.put('/:id', function(req, res, next) {
   console.log(req.body);
-  Galaxy.findByIdAndUpdate(req.params.id, req.body, function (err, galaxy) {
+  galaxyModel.findByIdAndUpdate(req.params.id, req.body, function (err, galaxy) {
     if (err) return next(err);
     res.json(galaxy);
   });
@@ -48,7 +46,7 @@ router.put('/:id', function(req, res, next) {
 /* PATCH */
 router.patch('/:id', function(req, res, next) {
   console.log(req.body);
-  Galaxy.findByIdAndUpdate(req.params.id, req.body, function (err, galaxy) {
+  galaxyModel.findByIdAndUpdate(req.params.id, req.body, function (err, galaxy) {
     if (err) return next(err);
     res.json(galaxy);
   });
@@ -57,7 +55,7 @@ router.patch('/:id', function(req, res, next) {
 /* DELETE */
 router.delete('/:id', function(req, res, next) {
   console.log(req.body);
-  Galaxy.findByIdAndRemove(req.params.id, req.body, function (err, galaxy) {
+  galaxyModel.findByIdAndRemove(req.params.id, req.body, function (err, galaxy) {
     if (err) return next(err);
     res.json(galaxy);
   });

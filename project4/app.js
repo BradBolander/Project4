@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,7 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var galaxies = require('./routes/galaxies');
 require('./models/db');
-// require('./models/Galaxies');
+
 var app = express();
 
 
@@ -25,7 +26,7 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/api/galaxies/', galaxies);
+app.use('/api/galaxies', galaxies);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
