@@ -6,7 +6,8 @@ var scene = new THREE.Scene();
 // scene.fog = new THREE.Fog( 0xeca1ff, .005, 1500 );
 // Create new Three perspective camera
 var camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 1, 50000);
-
+var cameraMode = 3;
+var cameraSpeed = 400;
 var mouseX = 0;
 var mouseY = 0;
 var mtx = 0;
@@ -36,19 +37,22 @@ function newGalaxy() {
 
     console.log('UPDATESSS');
     console.log(galaxy);
+    cameraMode = galaxy.mode;
+    cameraSpeed = galaxy.speed;
+
       if (galaxy) {
         removeSceneChildren();
         console.log(this);
-        var newgalaxy = this.create(galaxy.radius, galaxy.height, galaxy.particles, colorConversion(galaxy.color));
-        var newgalaxy2 = this.create(galaxy.radius2, galaxy.height2, galaxy.particles2, colorConversion(galaxy.color2));
-        var newgalaxy3 = this.create(galaxy.radius3, galaxy.height3, galaxy.particles3, colorConversion(galaxy.color3));
+        var newgalaxy = this.create(galaxy.radius, galaxy.height, galaxy.particles, colorConversion(galaxy.color), galaxy.size);
+        var newgalaxy2 = this.create(galaxy.radius2, galaxy.height2, galaxy.particles2, colorConversion(galaxy.color2), galaxy.size2);
+        var newgalaxy3 = this.create(galaxy.radius3, galaxy.height3, galaxy.particles3, colorConversion(galaxy.color3), galaxy.size3);
         scene.add(newgalaxy, newgalaxy2, newgalaxy3);
         canUpdate = false;
       };
 
     };
 
-  this.create = function(radius, height, starCount, color) {
+  this.create = function(radius, height, starCount, color, size) {
     // Creates new Three geometry
     console.log(color);
     var geometry = new THREE.Geometry();
@@ -57,7 +61,7 @@ function newGalaxy() {
     // Creates new material AKA the squares/stars
     var material = new THREE.PointCloudMaterial({
       color: color,
-      size: .05,
+      size: size,
       map: sprite,
       blending: THREE.AdditiveBlending,
       transparent: true,
@@ -117,7 +121,7 @@ function newPlanet(x,y,z,radius, color) {
 
 // Create new instance of newGalaxy
 var newGalaxy = new newGalaxy();
-var galaxy = newGalaxy.create(500, 25, 500000, 0xcc4a28);
+var galaxy = newGalaxy.create(500, 25, 500000, 0xcc4a28, .05);
 scene.add(galaxy);
 // var newPlanet = new newPlanet();
 // var planet = newPlanet.create(0,0,0,100, 0xffffff);
@@ -143,8 +147,24 @@ function update() {
   //For a camera that rotates in and out
   // camera.position.x = Math.cos(tickNum / 500) * 50;
   // camera.rotation.x = 90 * Math.PI / 180
-  camera.position.x = Math.cos( tickNum / 400 ) * 10;
-  camera.position.z = Math.sin( tickNum / 400 ) * 10;
+
+  //Camera Mode 1
+  if (cameraMode == 1){
+  camera.position.y = Math.cos( tickNum / cameraSpeed ) * 50;
+  };
+
+  //Camera Mode 2
+  if (cameraMode == 2){
+  camera.position.x = Math.cos( tickNum / cameraSpeed ) * 10;
+  camera.position.z = Math.sin( tickNum / cameraSpeed ) * 10;
+  };
+
+  //Camera Mode 3
+  if (cameraMode == 3){
+  camera.position.x = Math.cos( tickNum / cameraSpeed ) * 10;
+  camera.position.z = Math.sin( tickNum / cameraSpeed ) * 10;
+  camera.position.y = Math.tan( tickNum / cameraSpeed ) * 10;
+  };
 
   // Logic for defining where the camera points
   // sin and cos functions allow camera to oscillate back and forth

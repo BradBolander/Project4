@@ -10,6 +10,25 @@ $('#toggle-list').on('click', function() {
   $('.galaxy-list').toggle(200);
 });
 
+$('.tab-2').hide();
+$('.tab-3').hide();
+$('#tab-1').on('click', function() {
+  $('.tab-1').show();
+  $('.tab-2').hide();
+  $('.tab-3').hide();
+});
+$('#tab-2').on('click', function() {
+  $('.tab-1').hide();
+  $('.tab-2').show();
+  $('.tab-3').hide();
+});
+$('#tab-3').on('click', function() {
+  $('.tab-1').hide();
+  $('.tab-2').hide();
+  $('.tab-3').show();
+});
+
+
 ang.controller('ListingController', ['$scope', '$http', function($scope, $http) {
 
   $scope.plusLike = function(index) {
@@ -49,10 +68,17 @@ ang.controller('CreateController', ['$scope', '$http', function($scope, $http) {
     height: 50,
     height2: 50,
     height3: 50,
-    color: 0xe8a930,
+    color: 0xfa4252,
     color2: 0xd2a213,
-    color3: 0x4ad65c
+    color3: 0x4ad65c,
+    size: .05,
+    size2: .05,
+    size3: .05,
+    likes: 0,
+    mode: 3,
+    speed: 400
   };
+
   $scope.newGalaxy = model;
 
   $scope.$watch("newGalaxy", function(data) {
