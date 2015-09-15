@@ -41,9 +41,17 @@ ang.controller('CreateController', ['$scope', '$http', function($scope, $http) {
     name: '',
     description: '',
     radius: 500,
-    particles: 800000,
+    radius2: 200,
+    radius3: 100,
+    particles: 80000,
+    particles2: 80000,
+    particles3: 80000,
     height: 50,
-    color: 0xe8a930
+    height2: 50,
+    height3: 50,
+    color: 0xe8a930,
+    color2: 0xd2a213,
+    color3: 0x4ad65c
   };
   $scope.newGalaxy = model;
 

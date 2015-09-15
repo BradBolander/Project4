@@ -5,9 +5,8 @@
 var scene = new THREE.Scene();
 // scene.fog = new THREE.Fog( 0xeca1ff, .005, 1500 );
 // Create new Three perspective camera
-var camera = new THREE.PerspectiveCamera(150, window.innerWidth/window.innerHeight, 1, 50000);
-camera.position.x = -200;
-camera.position.z = 0;
+var camera = new THREE.PerspectiveCamera(90, window.innerWidth/window.innerHeight, 1, 50000);
+
 var mouseX = 0;
 var mouseY = 0;
 var mtx = 0;
@@ -19,15 +18,15 @@ document.addEventListener( 'mousemove', onMouseMove, false );
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( 500, 500 );
 container.appendChild( renderer.domElement );
-var text2 = document.createElement('div');
-text2.style.position = 'absolute';
-//text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this
-text2.style.width = 100;
-text2.style.height = 100;
-text2.innerHTML = "hi there!";
-text2.style.top = window.innerHeight/2;
-text2.style.left = window.innerWidth/2;
-document.body.appendChild(text2);
+// var text2 = document.createElement('div');
+// text2.style.position = 'absolute';
+// //text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this
+// text2.style.width = 100;
+// text2.style.height = 100;
+// text2.innerHTML = "hi there!";
+// text2.style.top = window.innerHeight/2;
+// text2.style.left = window.innerWidth/2;
+// document.body.appendChild(text2);
 // The function that creates a new galaxy
 var canUpdate = false;
 var count = 0;
@@ -41,8 +40,9 @@ function newGalaxy() {
         removeSceneChildren();
         console.log(this);
         var newgalaxy = this.create(galaxy.radius, galaxy.height, galaxy.particles, colorConversion(galaxy.color));
-
-        scene.add(newgalaxy);
+        var newgalaxy2 = this.create(galaxy.radius2, galaxy.height2, galaxy.particles2, colorConversion(galaxy.color2));
+        var newgalaxy3 = this.create(galaxy.radius3, galaxy.height3, galaxy.particles3, colorConversion(galaxy.color3));
+        scene.add(newgalaxy, newgalaxy2, newgalaxy3);
         canUpdate = false;
       };
 
@@ -123,20 +123,6 @@ scene.add(galaxy);
 // var planet = newPlanet.create(0,0,0,100, 0xffffff);
 
 
-
-// Add galaxy to scene
-
-
-$('#add-galaxy').click(function(){
-  var color = 0x1aae48;
-  // removeSceneChildren();
-  var galaxy2 = newGalaxy.create(500, 30, 500000, color);
-  var galaxy3 = newGalaxy.create(500, 35, 500000, 0xff7a19);
-
-  scene.add(galaxy2, galaxy3);
-
-});
-
 var removeSceneChildren = function() {
   for (var i = 0; i < scene.children.length; i++) {
     console.log(scene.children[i]);
@@ -153,11 +139,12 @@ function update() {
 
   timer();
   //Set camera Y coordinate
-  camera.position.y = 0;
-  camera.rotation.y += 1;
+  camera.position.y = 2;
   //For a camera that rotates in and out
-  camera.position.x = Math.cos(tickNum / 500) * 50;
-
+  // camera.position.x = Math.cos(tickNum / 500) * 50;
+  // camera.rotation.x = 90 * Math.PI / 180
+  camera.position.x = Math.cos( tickNum / 400 ) * 10;
+  camera.position.z = Math.sin( tickNum / 400 ) * 10;
 
   // Logic for defining where the camera points
   // sin and cos functions allow camera to oscillate back and forth
@@ -181,7 +168,7 @@ function onResize() {
 function timer() {
   count++;
 
-  if (count == 60) {
+  if (count == 30) {
     canUpdate = true;
     count = 1;
   };

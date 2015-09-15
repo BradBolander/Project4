@@ -17,11 +17,10 @@
     <div id="galaxy">
     </div>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
     <button id="toggle-create">Create</button>
     <button id="toggle-list">List</button>
     <section id="create-form" ng-controller="CreateController">
-          <h4>New Cloud</h4>
+          <h4>New Cloud1</h4>
         <div class="form-group">
           <h3>Name</h3>
           <input ng-model="newGalaxy.name" value="{{ newGalaxy.name }}" type="text" class="form-control" id="name" placeholder="Name">
@@ -31,20 +30,52 @@
           <input ng-model="newGalaxy.description" value="{{ newGalaxy.description }}" type="text" class="form-control" id="description" placeholder="Description">
         </div>
         <div class="form-group">
+          <h3>Color</h3>
+          <input ng-model="newGalaxy.color" value="{{ newGalaxy.color }}" type="color" class="form-control" id="color" placeholder="Color">
+        </div>
+        <div class="form-group">
+          <h3>Color2</h3>
+          <input ng-model="newGalaxy.color2" value="{{ newGalaxy.color2 }}" type="color" class="form-control" id="color2" placeholder="Color">
+        </div>
+        <div class="form-group">
+          <h3>Color3</h3>
+          <input ng-model="newGalaxy.color3" value="{{ newGalaxy.color3 }}" type="color" class="form-control" id="color3" placeholder="Color">
+        </div>
+        <div class="form-group">
           <h3>Radius</h3>
           <input ng-model="newGalaxy.radius" value="{{ newGalaxy.radius }}" type="text" class="form-control" id="radius" placeholder="Radius">
+        </div>
+        <div class="form-group">
+          <h3>Radius2</h3>
+          <input ng-model="newGalaxy.radius2" value="{{ newGalaxy.radius2 }}" type="text" class="form-control" id="radius2" placeholder="Radius">
+        </div>
+        <div class="form-group">
+          <h3>Radius3</h3>
+          <input ng-model="newGalaxy.radius3" value="{{ newGalaxy.radius3 }}" type="text" class="form-control" id="radius3" placeholder="Radius">
         </div>
         <div class="form-group">
           <h3>Particles</h3>
           <input ng-model="newGalaxy.particles" value="{{ newGalaxy.particles }}" type="text" class="form-control" id="particles" placeholder="Particles">
         </div>
         <div class="form-group">
+          <h3>Particles2</h3>
+          <input ng-model="newGalaxy.particles2" value="{{ newGalaxy.particles2 }}" type="text" class="form-control" id="particles2" placeholder="Particles">
+        </div>
+        <div class="form-group">
+          <h3>Particle3s</h3>
+          <input ng-model="newGalaxy.particles3" value="{{ newGalaxy.particles3 }}" type="text" class="form-control" id="particles3" placeholder="Particles">
+        </div>
+        <div class="form-group">
           <h3>Height</h3>
           <input ng-model="newGalaxy.height" value="{{ newGalaxy.height }}" type="text" class="form-control" id="height" placeholder="Height">
         </div>
         <div class="form-group">
-          <h3>Color</h3>
-          <input ng-model="newGalaxy.color" value="{{ newGalaxy.color }}" type="color" class="form-control" id="color" placeholder="Color">
+          <h3>Height2</h3>
+          <input ng-model="newGalaxy.height2" value="{{ newGalaxy.height2 }}" type="text" class="form-control" id="height2" placeholder="Height">
+        </div>
+        <div class="form-group">
+          <h3>Height3</h3>
+          <input ng-model="newGalaxy.height3" value="{{ newGalaxy.height3 }}" type="text" class="form-control" id="height3" placeholder="Height">
         </div>
         <button ng-click='create()' id='add-galaxy' type="button" class="button">Create</button>
     </section>
