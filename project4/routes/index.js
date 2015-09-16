@@ -10,7 +10,9 @@ var mongoose = require('mongoose');
 var galaxyModel = require('../models/galaxies');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Galaxies' });
+  res.render('index', {
+    title: 'Galaxies'
+  });
 });
 
 

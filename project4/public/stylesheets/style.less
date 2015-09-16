@@ -3,11 +3,15 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: rgb(163, 163, 163) !important;
 }
-
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
-
+#layer-wrapper {
+  width: 100%;
+}
+#add-galaxy {
+  width: 100%;
+}
 #galaxy {
   position: fixed;
   height: 100%;
@@ -16,24 +20,41 @@ a {
   left: 0;
   z-index: -5;
 }
+.form-control {
+  height: 30px !important;
+  background-color: rgba(65, 65, 65, 0.72) !important;
+}
+#description {
 
+}
+.btn.btn-default {
+  background-color: rgba(65, 65, 65, 0.72) !important;
+  color: rgb(207, 207, 207) !important;
+}
+#create-title {
+
+}
 #toggle-create {
 
 }
-
 #create-form {
-
+  margin-top: 5%;
+  width: 175px;
 }
-
+.like-dislike-wrapper {
+  display: inline;
+}
+#render {
+  margin-top: 6%;
+}
 .galaxy-list {
   width: 200px;
   background-color: rgba(15, 15, 15, 0.65);
   display: inline-block;
   margin-left: 5%;
   margin-top: 10%;
+  border: 1px solid white;
+  border-radius: 3%;
   position: relative;
-}
-
-#create-form {
-  width: 20%  !important;
+  padding: 15px;
 }
