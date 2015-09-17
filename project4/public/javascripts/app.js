@@ -7,6 +7,13 @@ $('#toggle-create').on('click', function() {
   $('#create-form').toggle(200);
 });
 
+$('#x').on('click', function() {
+  $('header').toggle(200);
+  $('#icons').toggle(200);
+  $('.galaxy-list').hide();
+  $('#create-form').hide();
+});
+
 $('#toggle-list').on('click', function() {
   $('#create-form').hide();
   $('.galaxy-list').toggle(200);
@@ -17,7 +24,7 @@ $('.tab-2').hide();
 $('.tab-3').hide();
 $('#tab-1').on('click', function() {
   $('.tab-0').fadeOut(600);
-  $('#create-title').html("Galaxy One");
+  $('#create-title').html("Cloud 1");
   $('.tab-1').fadeIn(600);
   $('.tab-2').fadeOut(600);
   $('.tab-3').fadeOut(600);
@@ -25,7 +32,7 @@ $('#tab-1').on('click', function() {
 });
 $('#tab-2').on('click', function() {
   $('.tab-0').fadeOut(600);
-  $('#create-title').html("Galaxy Two");
+  $('#create-title').html("Cloud 2");
   $('.tab-1').fadeOut(600);
   $('.tab-2').fadeIn(600);
   $('.tab-3').fadeOut(600);
@@ -33,7 +40,7 @@ $('#tab-2').on('click', function() {
 });
 $('#tab-3').on('click', function() {
   $('.tab-0').fadeOut(600);
-  $('#create-title').html("Galaxy Three");
+  $('#create-title').html("Cloud 3");
   $('.tab-1').fadeOut(600);
   $('.tab-2').fadeOut(600);
   $('.tab-3').fadeIn(600);
@@ -52,6 +59,8 @@ ang.controller('MainController', ['$scope', '$http', function($scope, $http) {
   $scope.delete = function(index) {
     $http.delete('/api/galaxies/' + $scope.galaxies[index]._id);
     getGalaxies();
+    $('.galaxy-list').hide();
+    $('.galaxy-list').show();
 
   };
   $scope.render = function(index) {
@@ -63,24 +72,26 @@ ang.controller('MainController', ['$scope', '$http', function($scope, $http) {
   var model = {
     name: '',
     description: '',
-    radius: 500,
-    radius2: 200,
-    radius3: 100,
+    radius: 4,
+    radius2: 4,
+    radius3: 5,
     particles: 80000,
     particles2: 80000,
     particles3: 80000,
-    height: 50,
-    height2: 50,
-    height3: 50,
-    color: '#fa4252',
-    color2: '#d2a213',
-    color3: '#4ad65c',
-    size: .05,
-    size2: .05,
-    size3: .05,
+    height: 4,
+    height2: 3,
+    height3: 4,
+    color: "#fa3ce2",
+    color2: "#d2a213",
+    color3: "#00c4db",
+    size: 0.05,
+    size2: 0.05,
+    size3: 0.05,
     likes: 0,
-    mode: 3,
-    speed: 400
+    mode: 2,
+    speed: 400,
+    bgcolor: 0x000000,
+    bgtrans: .8
   };
 
   $scope.newGalaxy = model;
@@ -95,7 +106,7 @@ ang.controller('MainController', ['$scope', '$http', function($scope, $http) {
   $scope.create = function() {
 
     console.log($scope.newGalaxy);
-    $http.post('/api/galaxies', $scope.newGalaxy).success(function(data) {
+    $http.post('/api/galaxies/', $scope.newGalaxy).success(function(data) {
       console.log('succeeded');
       getGalaxies();
     }).error(function() {
@@ -105,7 +116,7 @@ ang.controller('MainController', ['$scope', '$http', function($scope, $http) {
   };
 
   function getGalaxies() {
-    $http.get('/api/galaxies').success(function(data) {
+    $http.get('/api/galaxies/').success(function(data) {
       $scope.galaxies = data;
     });
   };

@@ -3,7 +3,7 @@
 
 <head>
   <title>
-    <%= title %>
+    Particle Cluster
   </title>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
@@ -14,34 +14,55 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.1/backbone-min.js"></script>
   <script type="text/javascript" src="http://threejs.org/build/three.min.js"></script>
   <script type="text/javascript" src="http://threejs.org/examples/js/controls/OrbitControls.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Orbitron|Raleway|Poiret+One|Play|Economica' rel='stylesheet' type='text/css'>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
   crossorigin="anonymous">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 
 <body>
+  <header>
+    <h1>
+      Clusters
+    </h1>
+
+  </header>
+  <i class="fa fa-arrows-alt fa-2x" id="x"></i>
   <div id="galaxy">
   </div>
-  <h1>
-    <%= title %>
-  </h1>
-  <button class="btn btn-default" id="toggle-create">Edit</button>
-  <button class="btn btn-default" id="toggle-list">View All</button>
+  <div id="icons">
+    <i class="icon-edit icon-3x" id="toggle-create"></i>
+    <br>
+    <i class="fa fa-list fa-3x" id="toggle-list"></i>
+  </div>
+
+  <!-- <button class="btn btn-default" id="toggle-list">View All</button> -->
 
 
   <div ng-controller="MainController" class="">
 
     <section id="create-form">
-
-      <div id="layer-wrapper" class="btn btn-default">
+      <h2 id="create-title">Cloud 1</h2>
+      <div id="layer-wrapper">
         <h4>Layers</h4>
         <button class="btn btn-default" id="tab-1">1</button>
         <button class="btn btn-default" id="tab-2">2</button>
         <button class="btn btn-default" id="tab-3">3</button>
       </div>
 
+      <br>
+      <br>
 
       <div class="tab-0">
-        <h2 id="create-title">Galaxy One</h2>
+        <div class="form-group">
+          <h4>Background Color</h4>
+          <input ng-model="newGalaxy.bgcolor" value="{{ newGalaxy.bgcolor }}" type="color" class="form-control" id="bgcolor" placeholder="Background Color">
+        </div>
+        <div class="form-group">
+          <h4>Background Transparency</h4>
+          <input ng-model="newGalaxy.bgtrans" value="{{ newGalaxy.bgtrans }}" type="range" min="0" max="1" step=".1" class="form-control" id="bgtrans" placeholder="Background Transparency">
+        </div>
         <div class="form-group">
           <h4>Name</h4>
           <input ng-model="newGalaxy.name" value="{{ newGalaxy.name }}" type="text" class="form-control" id="name" placeholder="Name">
@@ -52,101 +73,102 @@
         </div>
         <div class="form-group">
           <h4>Camera Mode</h4>
-          <input ng-model="newGalaxy.mode" value="{{ newGalaxy.mode }}" type="range" min="0" max="3" class="form-control" id="mode" placeholder="Camera Mode">
+          <input ng-model="newGalaxy.mode" value="{{ newGalaxy.mode }}" type="range" min="0" max="3" step="1" class="form-control" id="mode" placeholder="Camera Mode">
         </div>
         <div class="form-group">
-          <h4>Camera Speed</h>
-            <input ng-model="newGalaxy.speed" value="{{ newGalaxy.speed }}" type="range" min="50" max="1500" class="form-control" id="speed" placeholder="Camera Speed">
+          <h4>Camera Speed</h4>
+          <input ng-model="newGalaxy.speed" value="{{ newGalaxy.speed }}" type="range" min="50" max="1500" step="2" class="form-control" id="speed" placeholder="Camera Speed">
         </div>
       </div>
       <div class="tab-1">
         <div class="form-group">
-          <h4>Color</h4>
+          <h4>Partical Color</h4>
           <input ng-model="newGalaxy.color" value="{{ newGalaxy.color }}" type="color" class="form-control" id="color" placeholder="Color">
         </div>
         <div class="form-group">
           <h4>Radius</h4>
-          <input ng-model="newGalaxy.radius" value="{{ newGalaxy.radius }}" type="range" min="0" max="1000" class="form-control" id="radius" placeholder="Radius">
+          <input ng-model="newGalaxy.radius" value="{{ newGalaxy.radius }}" type="range" min="0" max="500" step="2" class="form-control" id="radius" placeholder="Radius">
         </div>
         <div class="form-group">
-          <h4>Particles</h4>
-          <input ng-model="newGalaxy.particles" value="{{ newGalaxy.particles }}" type="range" min="0" max="200000" class="form-control" id="particles" placeholder="Particles">
+          <h4>Particle Count</h4>
+          <input ng-model="newGalaxy.particles" value="{{ newGalaxy.particles }}" type="range" min="0" max="150000" step="100" class="form-control" id="particles" placeholder="Particles">
         </div>
         <div class="form-group">
           <h4>Height</h4>
-          <input ng-model="newGalaxy.height" value="{{ newGalaxy.height }}" type="range" min="0" max="500" class="form-control" id="height" placeholder="Height">
+          <input ng-model="newGalaxy.height" value="{{ newGalaxy.height }}" type="range" min="0" max="250" step="2" class="form-control" id="height" placeholder="Height">
         </div>
         <div class="form-group">
           <h4>Size</h4>
-          <input ng-model="newGalaxy.size" value="{{ newGalaxy.size }}" type="range" min="0.01" max="1" step="0.01" class="form-control" id="size" placeholder="Size">
+          <input ng-model="newGalaxy.size" value="{{ newGalaxy.size }}" type="range" min="0.01" max=".5" step="0.01" class="form-control" id="size" placeholder="Size">
         </div>
       </div>
       <div class="tab-2">
         <div class="form-group">
-          <h4>Color</h4>
+          <h4>Partical Color</h4>
           <input ng-model="newGalaxy.color2" value="{{ newGalaxy.color2 }}" type="color" class="form-control" id="color2" placeholder="Color">
         </div>
         <div class="form-group">
           <h4>Radius</h4>
-          <input ng-model="newGalaxy.radius2" value="{{ newGalaxy.radius2 }}" type="range" min="0" max="1000" class="form-control" id="radius2" placeholder="Radius">
+          <input ng-model="newGalaxy.radius2" value="{{ newGalaxy.radius2 }}" type="range" min="0" max="500" step="2" class="form-control" id="radius2" placeholder="Radius">
         </div>
         <div class="form-group">
-          <h4>Particles</h4>
-          <input ng-model="newGalaxy.particles2" value="{{ newGalaxy.particles2 }}" type="range" min="0" max="200000" class="form-control" id="particles2" placeholder="Particles">
+          <h4>Particle Count</h4>
+          <input ng-model="newGalaxy.particles2" value="{{ newGalaxy.particles2 }}" type="range" min="0" max="150000" step="100" class="form-control" id="particles2" placeholder="Particles">
         </div>
         <div class="form-group">
           <h4>Height</h4>
-          <input ng-model="newGalaxy.height2" value="{{ newGalaxy.height2 }}" type="range" min="0" max="500" class="form-control" id="height2" placeholder="Height">
+          <input ng-model="newGalaxy.height2" value="{{ newGalaxy.height2 }}" type="range" min="0" max="250" step="2" class="form-control" id="height2" placeholder="Height">
         </div>
         <div class="form-group">
           <h4>Size</h4>
-          <input ng-model="newGalaxy.size2" value="{{ newGalaxy.size2 }}" type="range" min="0.01" max="1" step="0.01" class="form-control" id="size2" placeholder="Size2">
+          <input ng-model="newGalaxy.size2" value="{{ newGalaxy.size2 }}" type="range" min="0.01" max=".5" step="0.01" class="form-control" id="size2" placeholder="Size2">
         </div>
       </div>
       <div class="tab-3">
         <div class="form-group">
-          <h4>Color</h4>
+          <h4>Partical Color</h4>
           <input ng-model="newGalaxy.color3" value="{{ newGalaxy.color3 }}" type="color" class="form-control" id="color3" placeholder="Color">
         </div>
         <div class="form-group">
           <h4>Radius</h4>
-          <input ng-model="newGalaxy.radius3" value="{{ newGalaxy.radius3 }}" type="range" min="0" max="1000" class="form-control" id="radius3" placeholder="Radius">
+          <input ng-model="newGalaxy.radius3" value="{{ newGalaxy.radius3 }}" type="range" min="0" max="500" step="2" class="form-control" id="radius3" placeholder="Radius">
         </div>
         <div class="form-group">
-          <h4>Particle</h4>
-          <input ng-model="newGalaxy.particles3" value="{{ newGalaxy.particles3 }}" type="range" min="0" max="200000" class="form-control" id="particles3" placeholder="Particles">
+          <h4>Particle Count</h4>
+          <input ng-model="newGalaxy.particles3" value="{{ newGalaxy.particles3 }}" type="range" min="0" max="150000" step="100" class="form-control" id="particles3" placeholder="Particles">
         </div>
         <div class="form-group">
           <h4>Height</h4>
-          <input ng-model="newGalaxy.height3" value="{{ newGalaxy.height3 }}" type="range" min="0" max="500" class="form-control" id="height3" placeholder="Height">
+          <input ng-model="newGalaxy.height3" value="{{ newGalaxy.height3 }}" type="range" min="0" max="250" step="2" class="form-control" id="height3" placeholder="Height">
         </div>
         <div class="form-group">
           <h4>Size</h4>
-          <input ng-model="newGalaxy.size3" value="{{ newGalaxy.size3 }}" type="range" min="0.01" max="1" step="0.01" class="form-control" id="size3" placeholder="Size3">
+          <input ng-model="newGalaxy.size3" value="{{ newGalaxy.size3 }}" type="range" min="0.01" max=".5" step="0.01" class="form-control" id="size3" placeholder="Size3">
         </div>
       </div>
       <button ng-click='create()' id='add-galaxy' type="button" class="btn btn-default">Save</button>
     </section>
 
     <div>
+      <div class="list-wrapper">
+        <article class="galaxy-list" ng-repeat="galaxy in galaxies">
+          <h3> {{galaxy.name}} </h3>
+          <p> {{galaxy.description}} </p>
+          <h1 id="likes">{{galaxy.likes}}</h1>
 
-      <article class="galaxy-list" ng-repeat="galaxy in galaxies">
-        <h3> {{galaxy.name}} </h3>
-        <p> {{galaxy.description}} </p>
-        <h4>Likes</h4>
-        <h5>{{galaxy.likes}} </h5>
-        <div class="like-dislike-wrapper">
-          <p ng-click="plusLike($index)">
-            <button type="button" class="btn btn-default" name="button">Like</button>
-          </p>
-          <p ng-click="minusLike($index)">
-            <button type="button" class="btn btn-default" name="button">Dislike</button>
-          </p>
-        </div>
-        <button class="btn btn-default" id="delete" ng-click="delete($index)" type="button">Delete</button>
-        <br>
-        <button class="btn btn-default" id="render" ng-click="render($index)" type="button">Load</button>
-      </article>
+          <div class="like-dislike-wrapper">
+            <p ng-click="plusLike($index)">
+              <i class="fa fa-gratipay fa-4x"></i>
+            </p>
+            <p ng-click="minusLike($index)">
+              <button type="button" class="btn btn-default" name="button" id="dislike">Dislike</button>
+            </p>
+          </div>
+          <button class="btn btn-default" id="delete" ng-click="delete($index)" type="button">Delete</button>
+          <br>
+          <button class="btn btn-default" id="render" ng-click="render($index)" type="button">Load</button>
+        </article>
+      </div>
 
     </div>
   </div>

@@ -20,7 +20,9 @@ var GalaxySchema = new mongoose.Schema({
   size3: Number,
   likes: Number,
   mode: Number,
-  speed: Number
+  speed: Number,
+  bgcolor: String,
+  bgtrans: Number
 });
 
 module.exports = mongoose.model('galaxies', GalaxySchema);

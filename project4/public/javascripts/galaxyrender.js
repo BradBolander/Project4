@@ -5,20 +5,22 @@
 var scene = new THREE.Scene();
 // scene.fog = new THREE.Fog( 0xeca1ff, .005, 1500 );
 // Create new Three perspective camera
-var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 50000);
-var cameraMode = 3;
+var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1, 50000);
+var cameraMode = 2;
 var cameraSpeed = 400;
 var mouseX = 0;
 var mouseY = 0;
 var mtx = 0;
 var mty = 0;
-container = document.getElementById("galaxy");
-document.body.appendChild(container);
-document.addEventListener('mousemove', onMouseMove, false);
+container = document.getElementById( "galaxy" );
+document.body.appendChild( container );
+document.addEventListener( 'mousemove', onMouseMove, false );
 
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize(500, 500);
-container.appendChild(renderer.domElement);
+var renderer = new THREE.WebGLRenderer( { alpha: true });
+renderer.setSize( 500, 500 );
+container.appendChild( renderer.domElement );
+renderer.setClearColor( 0x000000, .8 );
+
 // var text2 = document.createElement('div');
 // text2.style.position = 'absolute';
 // //text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this
@@ -31,7 +33,6 @@ container.appendChild(renderer.domElement);
 // The function that creates a new galaxy
 var canUpdate = false;
 var count = 0;
-
 function newGalaxy() {
 
   this.testFunction = function(galaxy) {
@@ -40,24 +41,24 @@ function newGalaxy() {
     console.log(galaxy);
     cameraMode = galaxy.mode;
     cameraSpeed = galaxy.speed;
+    renderer.setClearColor( galaxy.bgcolor, galaxy.bgtrans );
+      if (galaxy) {
+        removeSceneChildren();
+        console.log(this);
+        var newgalaxy = this.create(galaxy.radius, galaxy.height, galaxy.particles, colorConversion(galaxy.color), galaxy.size, galaxy.bgcolor, galaxy.bgtrans);
+        var newgalaxy2 = this.create(galaxy.radius2, galaxy.height2, galaxy.particles2, colorConversion(galaxy.color2), galaxy.size2, galaxy.bgcolor, galaxy.bgtrans);
+        var newgalaxy3 = this.create(galaxy.radius3, galaxy.height3, galaxy.particles3, colorConversion(galaxy.color3), galaxy.size3, galaxy.bgcolor, galaxy.bgtrans);
+        scene.add(newgalaxy, newgalaxy2, newgalaxy3);
+        canUpdate = false;
+      };
 
-    if (galaxy) {
-      removeSceneChildren();
-      console.log(this);
-      var newgalaxy = this.create(galaxy.radius, galaxy.height, galaxy.particles, colorConversion(galaxy.color), galaxy.size);
-      var newgalaxy2 = this.create(galaxy.radius2, galaxy.height2, galaxy.particles2, colorConversion(galaxy.color2), galaxy.size2);
-      var newgalaxy3 = this.create(galaxy.radius3, galaxy.height3, galaxy.particles3, colorConversion(galaxy.color3), galaxy.size3);
-      scene.add(newgalaxy, newgalaxy2, newgalaxy3);
-      canUpdate = false;
     };
 
-  };
-
-  this.create = function(radius, height, starCount, color, size) {
+  this.create = function(radius, height, starCount, color, size, bgcolor, bgtrans) {
     // Creates new Three geometry
     console.log(color);
     var geometry = new THREE.Geometry();
-    sprite = THREE.ImageUtils.loadTexture("images/disc.png");
+    sprite = THREE.ImageUtils.loadTexture( "images/disc.png" );
 
     // Creates new material AKA the squares/stars
     var material = new THREE.PointCloudMaterial({
@@ -69,8 +70,8 @@ function newGalaxy() {
       sizeAttenuation: true
     });
 
-    var max = 500;
-    var min = -500;
+     var max = 500;
+     var min = -500;
     //Loop that creates stars and detemines their positions
     for (var i = 0; i < starCount; i++) {
       var x = Math.random() * Math.PI * 2;
@@ -83,8 +84,8 @@ function newGalaxy() {
       // coords.y = Math.random() * Math.cos(Math.PI) * -500;
       // coords.z = Math.random() * Math.cos(Math.PI) * -500;
       coords.x = Math.cos(x) * Math.cos(y) * randRadius;
-      coords.y = Math.sin(y) * Math.random() * height;
-      coords.z = Math.sin(x) * Math.cos(y) * randRadius;
+     coords.y = Math.sin(y) * Math.random() * height;
+     coords.z = Math.sin(x) * Math.cos(y) * randRadius;
 
       //Assign coordinates to geometry
       geometry.vertices.push(coords);
@@ -96,35 +97,35 @@ function newGalaxy() {
   }
 };
 
-function newPlanet(x, y, z, radius, color) {
+function newPlanet(x,y,z,radius, color) {
 
   var geometry = new THREE.SphereGeometry(radius, 32, 32);
-  var material = new THREE.MeshLambertMaterial({
+  var material = new THREE.MeshLambertMaterial( {
 
     color: color,
 
-  });
-  for (var i = 0; i < 10; i++) {
-    var randRadius = Math.random() * 50;
+    });
+    for (var i = 0; i < 10; i++) {
+      var randRadius = Math.random() * 50;
 
-    var coords = new THREE.Vector3();
-    coords.x = x;
-    coords.y = y;
-    coords.z = z;
+      var coords = new THREE.Vector3();
+      coords.x = x;
+      coords.y = y;
+      coords.z = z;
 
-    //Assign coordinates to geometry
-    geometry.vertices.push(coords);
-  }
-  var sphere = new THREE.Mesh(geometry, material);
-  return sphere;
+      //Assign coordinates to geometry
+      geometry.vertices.push(coords);
+    }
+    var sphere = new THREE.Mesh( geometry, material );
+    return sphere;
 
 }
 
 // Create new instance of newGalaxy
 var newGalaxy = new newGalaxy();
-var galaxy = newGalaxy.create(347, 468, 200000, 0x76b8de, .05);
-var galaxy2 = newGalaxy.create(200, 50, 80000, 0xd2a213, .05);
-var galaxy3 = newGalaxy.create(100, 50, 80000, 0x4ad65c, .05);
+var galaxy = newGalaxy.create(4, 4, 8000, 0xfa3ce2, .05, 0xffffff, 1);
+var galaxy2 = newGalaxy.create(4, 3, 80000, 0xd2a213, .05, 0xffffff, 1);
+var galaxy3 = newGalaxy.create(5, 4, 80000, 0x00c4db, .05, 0xffffff, 1);
 
 scene.add(galaxy, galaxy2, galaxy3);
 // var newPlanet = new newPlanet();
@@ -153,21 +154,21 @@ function update() {
   // camera.rotation.x = 90 * Math.PI / 180
 
   //Camera Mode 1
-  if (cameraMode == 1) {
-    camera.position.y = Math.cos(tickNum / cameraSpeed) * 50;
+  if (cameraMode == 1){
+  camera.position.y = Math.cos( tickNum / cameraSpeed ) * 50;
   };
 
   //Camera Mode 2
-  if (cameraMode == 2) {
-    camera.position.x = Math.cos(tickNum / cameraSpeed) * 10;
-    camera.position.z = Math.sin(tickNum / cameraSpeed) * 10;
+  if (cameraMode == 2){
+  camera.position.x = Math.cos( tickNum / cameraSpeed ) * 10;
+  camera.position.z = Math.sin( tickNum / cameraSpeed ) * 10;
   };
 
   //Camera Mode 3
-  if (cameraMode == 3) {
-    camera.position.x = Math.cos(tickNum / cameraSpeed) * 10;
-    camera.position.z = Math.sin(tickNum / cameraSpeed) * 10;
-    camera.position.y = Math.tan(tickNum / cameraSpeed) * 10;
+  if (cameraMode == 3){
+  camera.position.x = Math.cos( tickNum / cameraSpeed ) * 10;
+  camera.position.z = Math.sin( tickNum / cameraSpeed ) * 10;
+  camera.position.y = Math.tan( tickNum / cameraSpeed ) * 10;
   };
 
   // Logic for defining where the camera points
@@ -200,17 +201,17 @@ function timer() {
 
 
 function getRandomColor() {
-  var letters = '0123456789ABCDEF'.split('');
-  var color = '0x';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '0x';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
 function onMouseMove(e) {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+	mouseX = e.clientX;
+	mouseY = e.clientY;
 }
 
 // function doKeyDown(e) {
