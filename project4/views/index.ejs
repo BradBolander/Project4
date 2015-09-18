@@ -54,32 +54,7 @@
       <br>
       <br>
 
-      <div class="tab-0">
-        <div class="form-group">
-          <h4>Background Color</h4>
-          <input ng-model="newGalaxy.bgcolor" value="{{ newGalaxy.bgcolor }}" type="color" class="form-control" id="bgcolor" placeholder="Background Color">
-        </div>
-        <div class="form-group">
-          <h4>Background Transparency</h4>
-          <input ng-model="newGalaxy.bgtrans" value="{{ newGalaxy.bgtrans }}" type="range" min="0" max="1" step=".1" class="form-control" id="bgtrans" placeholder="Background Transparency">
-        </div>
-        <div class="form-group">
-          <h4>Name</h4>
-          <input ng-model="newGalaxy.name" value="{{ newGalaxy.name }}" type="text" class="form-control" id="name" placeholder="Name">
-        </div>
-        <div class="form-group">
-          <h4>Description</h4>
-          <input ng-model="newGalaxy.description" value="{{ newGalaxy.description }}" type="text" class="form-control" id="description" placeholder="Description">
-        </div>
-        <div class="form-group">
-          <h4>Camera Mode</h4>
-          <input ng-model="newGalaxy.mode" value="{{ newGalaxy.mode }}" type="range" min="0" max="3" step="1" class="form-control" id="mode" placeholder="Camera Mode">
-        </div>
-        <div class="form-group">
-          <h4>Camera Speed</h4>
-          <input ng-model="newGalaxy.speed" value="{{ newGalaxy.speed }}" type="range" min="50" max="1500" step="2" class="form-control" id="speed" placeholder="Camera Speed">
-        </div>
-      </div>
+
       <div class="tab-1">
         <div class="form-group">
           <h4>Partical Color</h4>
@@ -146,6 +121,32 @@
           <input ng-model="newGalaxy.size3" value="{{ newGalaxy.size3 }}" type="range" min="0.01" max=".5" step="0.01" class="form-control" id="size3" placeholder="Size3">
         </div>
       </div>
+      <div class="tab-0">
+        <div class="form-group">
+          <h4>Background Color</h4>
+          <input ng-model="newGalaxy.bgcolor" value="{{ newGalaxy.bgcolor }}" type="color" class="form-control" id="bgcolor" placeholder="Background Color">
+        </div>
+        <div class="form-group">
+          <h4>Background Transparency</h4>
+          <input ng-model="newGalaxy.bgtrans" value="{{ newGalaxy.bgtrans }}" type="range" min="0" max="1" step=".1" class="form-control" id="bgtrans" placeholder="Background Transparency">
+        </div>
+        <div class="form-group">
+          <h4>Name</h4>
+          <input ng-model="newGalaxy.name" value="{{ newGalaxy.name }}" type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <h4>Description</h4>
+          <input ng-model="newGalaxy.description" value="{{ newGalaxy.description }}" type="text" class="form-control" id="description" placeholder="Description">
+        </div>
+        <div class="form-group">
+          <h4>Camera Mode</h4>
+          <input ng-model="newGalaxy.mode" value="{{ newGalaxy.mode }}" type="range" min="0" max="3" step="1" class="form-control" id="mode" placeholder="Camera Mode">
+        </div>
+        <div class="form-group">
+          <h4>Camera Speed</h4>
+          <input ng-model="newGalaxy.speed" value="{{ newGalaxy.speed }}" type="range" min="50" max="1500" step="2" class="form-control" id="speed" placeholder="Camera Speed">
+        </div>
+      </div>
       <button ng-click='create()' id='add-galaxy' type="button" class="btn btn-default">Save</button>
     </section>
 
@@ -161,7 +162,7 @@
               <i class="fa fa-gratipay fa-4x"></i>
             </p>
             <p ng-click="minusLike($index)">
-              <button type="button" class="btn btn-default" name="button" id="dislike">Dislike</button>
+
             </p>
           </div>
           <button class="btn btn-default" id="delete" ng-click="delete($index)" type="button">Delete</button>

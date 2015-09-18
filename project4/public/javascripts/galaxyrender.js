@@ -193,7 +193,7 @@ function onResize() {
 function timer() {
   count++;
 
-  if (count == 30) {
+  if (count == 15) {
     canUpdate = true;
     count = 1;
   };

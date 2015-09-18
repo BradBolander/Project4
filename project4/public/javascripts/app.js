@@ -64,8 +64,8 @@ ang.controller('MainController', ['$scope', '$http', function($scope, $http) {
 
   };
   $scope.render = function(index) {
-    console.log($scope.newGalaxy);
     newGalaxy.testFunction($scope.galaxies[index]);
+
     $scope.newGalaxy = $scope.galaxies[index];
   };
 
@@ -97,15 +97,16 @@ ang.controller('MainController', ['$scope', '$http', function($scope, $http) {
   $scope.newGalaxy = model;
 
   $scope.$watch("newGalaxy", function(data) {
-    console.log('working?', data);
+    //console.log('working?', data);
     if (canUpdate == true || count == 0) {
       newGalaxy.testFunction(data);
     };
   }, true);
 
   $scope.create = function() {
-
+    $scope.newGalaxy._id = null;
     console.log($scope.newGalaxy);
+
     $http.post('/api/galaxies/', $scope.newGalaxy).success(function(data) {
       console.log('succeeded');
       getGalaxies();
