@@ -33,6 +33,7 @@ renderer.setClearColor( 0x000000, .8 );
 // The function that creates a new galaxy
 var canUpdate = false;
 var count = 0;
+var count2 = 0;
 function newGalaxy() {
 
   this.testFunction = function(galaxy) {
@@ -87,8 +88,21 @@ function newGalaxy() {
      coords.y = Math.sin(y) * Math.random() * height;
      coords.z = Math.sin(x) * Math.cos(y) * randRadius;
 
+     if (count2 == 0) {
+       coords.y -= 0;
+     }
+     if (count2 == 1) {
+       coords.y -= 5;
+     }
+     if (count2 == 2) {
+       coords.y += 5;
+     }
       //Assign coordinates to geometry
       geometry.vertices.push(coords);
+      count2++;
+      if (count2 > 2) {
+        count2 = 0;
+      }
     }
 
     //Creates new star with given geometry and material
@@ -155,7 +169,7 @@ function update() {
 
   //Camera Mode 1
   if (cameraMode == 1){
-  camera.position.y = Math.cos( tickNum / cameraSpeed ) * 50;
+  camera.position.y = Math.cos( tickNum / cameraSpeed ) * 10;
   };
 
   //Camera Mode 2
