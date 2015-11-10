@@ -16,7 +16,9 @@ $('#x').on('click', function() {
 
 $('#toggle-list').on('click', function() {
   $('#create-form').hide();
-  $('.galaxy-list').toggle(200);
+  $('.galaxy-list').show();
+  $('.list-wrapper').show();
+
 });
 
 
