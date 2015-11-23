@@ -1,0 +1,18 @@
+{
+  "name": "project4",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Brad Bolander <bolanderbrad@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/BradBolander/Project4",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

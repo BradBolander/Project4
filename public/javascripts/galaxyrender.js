@@ -59,7 +59,7 @@ function newGalaxy() {
     // Creates new Three geometry
     console.log(color);
     var geometry = new THREE.Geometry();
-    sprite = THREE.ImageUtils.loadTexture( "images/disc.png" );
+    sprite = THREE.ImageUtils.loadTexture( "images/disc2.png" );
 
     // Creates new material AKA the squares/stars
     var material = new THREE.PointCloudMaterial({
@@ -137,9 +137,10 @@ function newPlanet(x,y,z,radius, color) {
 
 // Create new instance of newGalaxy
 var newGalaxy = new newGalaxy();
-var galaxy = newGalaxy.create(4, 4, 8000, 0xfa3ce2, .05, 0xffffff, 1);
-var galaxy2 = newGalaxy.create(4, 3, 80000, 0xd2a213, .05, 0xffffff, 1);
-var galaxy3 = newGalaxy.create(5, 4, 80000, 0x00c4db, .05, 0xffffff, 1);
+var galaxy = newGalaxy.create(100, 4, 300000, 0xfa3ce2, .05, 0xffffff, 2);
+var galaxy2 = newGalaxy.create(3, 3, 300000, 0xd2a213, .05, 0xffffff, 2);
+var galaxy3 = newGalaxy.create(400, 4, 300000, 0x00c4db, .05, 0xffffff, 2);
+
 
 scene.add(galaxy, galaxy2, galaxy3);
 // var newPlanet = new newPlanet();
@@ -166,7 +167,7 @@ function update() {
   //For a camera that rotates in and out
   // camera.position.x = Math.cos(tickNum / 500) * 50;
   // camera.rotation.x = 90 * Math.PI / 180
-
+  cameraMode = 3;
   //Camera Mode 1
   if (cameraMode == 1){
   camera.position.y = Math.cos( tickNum / cameraSpeed ) * 10;
@@ -255,6 +256,103 @@ function onMouseMove(e) {
 //   }
 //
 // }
+
+var example = example || {};
+
+(function () {
+    "use strict";
+
+    var freqTransform = function (value) {
+        return (value * 6000) + 60;
+    };
+
+    var identityTransform = function (value) {
+        return value;
+    };
+
+    var carrierSpec = {
+        freq: {
+            inputPath: "carrier.freq.value",
+            transform: freqTransform
+        },
+        mul: {
+            inputPath: "carrier.mul",
+            transform: identityTransform
+        }
+    };
+
+    var modulatorSpec = {
+        freq: {
+            inputPath: "modulator.freq.value",
+            transform: freqTransform
+        },
+        mul: {
+            inputPath: "modulator.mul",
+            transform: freqTransform
+        }
+    };
+
+    example.SocketSynth = function () {
+        this.oscPort = new osc.WebSocketPort({
+            url: "ws://localhost:8081"
+        });
+
+        this.listen();
+        this.oscPort.open();
+
+        this.oscPort.socket.onmessage = function (e) {
+            console.log("message", e);
+        };
+
+        this.valueMap = {
+            "/knobs/0": carrierSpec.freq,
+            "/fader1/out": carrierSpec.freq,
+
+            "/knobs/1": carrierSpec.mul,
+            "/fader2/out": carrierSpec.mul,
+
+            "/knobs/2": modulatorSpec.freq,
+            "/fader3/out": modulatorSpec.freq,
+
+            "/knobs/3": modulatorSpec.mul,
+            "/fader4/out": modulatorSpec.mul
+        };
+
+
+
+
+
+    };
+
+    example.SocketSynth.prototype.listen = function () {
+        this.oscPort.on("message", this.mapMessage.bind(this));
+        this.oscPort.on("message", function (msg) {
+            console.log("message", msg);
+        });
+        this.oscPort.on("close", this.pause.bind(this));
+    };
+
+
+    example.SocketSynth.prototype.pause = function () {
+
+    };
+
+    example.SocketSynth.prototype.mapMessage = function (oscMessage) {
+        $("#message").text(fluid.prettyPrintJSON(oscMessage));
+
+        var address = oscMessage.address;
+        var value = oscMessage.args[0];
+        var transformSpec = this.valueMap[address];
+
+        if (transformSpec) {
+            var transformed = transformSpec.transform(value);
+
+
+        }
+    };
+
+}());
+
 
 function colorConversion(hexColor) {
   if (typeof hexColor === 'string' || hexColor instanceof String) {
