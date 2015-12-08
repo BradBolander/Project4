@@ -92,10 +92,10 @@ function newGalaxy() {
        coords.y -= 0;
      }
      if (count2 == 1) {
-       coords.y -= 5;
+       coords.y -= 20;
      }
      if (count2 == 2) {
-       coords.y += 5;
+       coords.y += 20;
      }
       //Assign coordinates to geometry
       geometry.vertices.push(coords);
@@ -137,8 +137,8 @@ function newPlanet(x,y,z,radius, color) {
 
 // Create new instance of newGalaxy
 var newGalaxy = new newGalaxy();
-var galaxy = newGalaxy.create(100, 4, 300000, 0xfa3ce2, .05, 0xffffff, 2);
-var galaxy2 = newGalaxy.create(3, 3, 300000, 0xd2a213, .05, 0xffffff, 2);
+var galaxy = newGalaxy.create(100, 4, 300000, 0xff7a00, .05, 0xffffff, 2);
+var galaxy2 = newGalaxy.create(3, 10, 300000, 0x00ffc2, .05, 0xffffff, 2);
 var galaxy3 = newGalaxy.create(400, 4, 300000, 0x00c4db, .05, 0xffffff, 2);
 
 
@@ -167,7 +167,7 @@ function update() {
   //For a camera that rotates in and out
   // camera.position.x = Math.cos(tickNum / 500) * 50;
   // camera.rotation.x = 90 * Math.PI / 180
-  cameraMode = 3;
+
   //Camera Mode 1
   if (cameraMode == 1){
   camera.position.y = Math.cos( tickNum / cameraSpeed ) * 10;
