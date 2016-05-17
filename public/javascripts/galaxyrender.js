@@ -2,12 +2,19 @@
 // New Three renderer
 // var renderer = new THREE.WebGLRenderer();
 // Create new Three scene
+$('#colorChange').on('click', function() {
+  changeColor();
+});
+
+$('#positionChange').on('click', function() {
+  changePosition();
+});
 var scene = new THREE.Scene();
 // scene.fog = new THREE.Fog( 0xeca1ff, .005, 1500 );
 // Create new Three perspective camera
 var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1, 50000);
 var cameraMode = 2;
-var cameraSpeed = 400;
+var cameraSpeed = 200;
 var mouseX = 0;
 var mouseY = 0;
 var mtx = 0;
@@ -36,24 +43,24 @@ var count = 0;
 var count2 = 0;
 function newGalaxy() {
 
-  this.testFunction = function(galaxy) {
-
-    console.log('UPDATESSS');
-    console.log(galaxy);
-    cameraMode = galaxy.mode;
-    cameraSpeed = galaxy.speed;
-    renderer.setClearColor( galaxy.bgcolor, galaxy.bgtrans );
-      if (galaxy) {
-        removeSceneChildren();
-        console.log(this);
-        var newgalaxy = this.create(galaxy.radius, galaxy.height, galaxy.particles, colorConversion(galaxy.color), galaxy.size, galaxy.bgcolor, galaxy.bgtrans);
-        var newgalaxy2 = this.create(galaxy.radius2, galaxy.height2, galaxy.particles2, colorConversion(galaxy.color2), galaxy.size2, galaxy.bgcolor, galaxy.bgtrans);
-        var newgalaxy3 = this.create(galaxy.radius3, galaxy.height3, galaxy.particles3, colorConversion(galaxy.color3), galaxy.size3, galaxy.bgcolor, galaxy.bgtrans);
-        scene.add(newgalaxy, newgalaxy2, newgalaxy3);
-        canUpdate = false;
-      };
-
-    };
+  // this.testFunction = function(galaxy) {
+  //
+  //   console.log('UPDATESSS');
+  //   console.log(galaxy);
+  //   cameraMode = galaxy.mode;
+  //   cameraSpeed = galaxy.speed;
+  //   renderer.setClearColor( galaxy.bgcolor, galaxy.bgtrans );
+  //     if (galaxy) {
+  //       removeSceneChildren();
+  //       console.log(this);
+  //       var newgalaxy = this.create(galaxy.radius, galaxy.height, galaxy.particles, colorConversion(galaxy.color), galaxy.size, galaxy.bgcolor, galaxy.bgtrans);
+  //       var newgalaxy2 = this.create(galaxy.radius2, galaxy.height2, galaxy.particles2, colorConversion(galaxy.color2), galaxy.size2, galaxy.bgcolor, galaxy.bgtrans);
+  //       var newgalaxy3 = this.create(galaxy.radius3, galaxy.height3, galaxy.particles3, colorConversion(galaxy.color3), galaxy.size3, galaxy.bgcolor, galaxy.bgtrans);
+  //       scene.add(newgalaxy, newgalaxy2, newgalaxy3);
+  //       canUpdate = false;
+  //     };
+  //
+  //   };
 
   this.create = function(radius, height, starCount, color, size, bgcolor, bgtrans) {
     // Creates new Three geometry
@@ -88,15 +95,10 @@ function newGalaxy() {
      coords.y = Math.sin(y) * Math.random() * height;
      coords.z = Math.sin(x) * Math.cos(y) * randRadius;
 
-     if (count2 == 0) {
-       coords.y -= 0;
-     }
-     if (count2 == 1) {
-       coords.y -= 5;
-     }
-     if (count2 == 2) {
-       coords.y += 5;
-     }
+
+
+
+
       //Assign coordinates to geometry
       geometry.vertices.push(coords);
       count2++;
@@ -137,14 +139,18 @@ function newPlanet(x,y,z,radius, color) {
 
 // Create new instance of newGalaxy
 var newGalaxy = new newGalaxy();
-var galaxy = newGalaxy.create(4, 4, 8000, 0xfa3ce2, .05, 0xffffff, 1);
-var galaxy2 = newGalaxy.create(4, 3, 80000, 0xd2a213, .05, 0xffffff, 1);
-var galaxy3 = newGalaxy.create(5, 4, 80000, 0x00c4db, .05, 0xffffff, 1);
 
-scene.add(galaxy, galaxy2, galaxy3);
+//scene.add(galaxy,galaxy2,galaxy3,galaxy4,galaxy5,galaxy6,galaxy7,galaxy8,galaxy9,galaxy10,galaxy11,galaxy12,galaxy13,galaxy14,galaxy15,galaxy16,galaxy17,galaxy18,galaxy19,galaxy20,galaxy21,galaxy22,galaxy23,galaxy24,galaxy25,galaxy26,galaxy27,galaxy28,galaxy29,galaxy30,galaxy31,galaxy32);
 // var newPlanet = new newPlanet();
 // var planet = newPlanet.create(0,0,0,100, 0xffffff);
-
+addGalaxies();
+function addGalaxies()
+{
+  for (var i = 1; i < 33; i++){
+    var galxy = newGalaxy.create(i , 3, 4000, 0x00c4db, .1, 0xffffff, 1);
+    scene.add(galxy);
+  }
+}
 
 var removeSceneChildren = function() {
   for (var i = 0; i < scene.children.length; i++) {
@@ -153,6 +159,52 @@ var removeSceneChildren = function() {
   }
 }
 
+function changeColor(data, index) {
+
+  //for (var i = 0; i < scene.children.length; i++) {
+    // console.log(scene.children[i]);
+
+    scene.children[index].material.color.r = normalize(0,1,0,250, data);
+    // scene.children[index].material.color.g = normalize(0,1,0,250, data);
+    scene.children[index].material.color.g = normalize(0,1,0,250, data);
+    scene.children[index].material.color.b = normalize(0,1,0,250, data);
+    // console.log(scene.children[i])
+  //}
+}
+
+function changePosition() {
+
+    for (var i = 0; i < scene.children.length; i++) {
+      for (var x = 0; x < scene.children[i].geometry.vertices.length; x++) {
+        scene.children[i].geometry.vertices[x].x = randomPosition();
+        scene.children[i].geometry.vertices[x].y = randomPosition();
+        scene.children[i].geometry.vertices[x].z = randomPosition();
+        console.log(scene.children[i].geometry.vertices[x].x);
+        console.log('test');
+
+      }
+      console.log(scene.children[i]);
+      scene.children[i].geometry.verticesNeedUpdate = true;
+    }
+}
+
+function audioPosition(data) {
+  for (var i = 0; i < scene.children.length; i++) {
+    for (var x = 0; x < scene.children[i].geometry.vertices.length; x++) {
+      console.log(scene.children[i].geometry.vertices[x].x = data *.05) ;
+      // scene.children[i].geometry.vertices[x].y = data * .01;
+      // scene.children[i].geometry.vertices[x].z = data * .01;
+
+    }
+
+    scene.children[i].geometry.verticesNeedUpdate = true;
+  }
+}
+
+function normalize(froms, to, min, max, toNormalize){
+  var value = (toNormalize - min) * (to - froms) / (max - min);
+  return value;
+}
 
 // This loop updates as soon as a tick occurs
 var tickNum = 0;
@@ -166,6 +218,9 @@ function update() {
   //For a camera that rotates in and out
   // camera.position.x = Math.cos(tickNum / 500) * 50;
   // camera.rotation.x = 90 * Math.PI / 180
+
+
+
 
   //Camera Mode 1
   if (cameraMode == 1){
@@ -184,6 +239,7 @@ function update() {
   camera.position.z = Math.sin( tickNum / cameraSpeed ) * 10;
   camera.position.y = Math.tan( tickNum / cameraSpeed ) * 10;
   };
+
 
   // Logic for defining where the camera points
   // sin and cos functions allow camera to oscillate back and forth
@@ -266,3 +322,50 @@ function colorConversion(hexColor) {
   }
 
 };
+
+function randomRGBComponent() {
+	return Math.round(Math.random() * 1);
+}
+
+function randomPosition() {
+  return Math.floor(Math.random() * 25) - 10;
+}
+
+var actx = new (window.AudioContext || window.webkitAudioContext)();
+  var source = actx.createBufferSource();
+  var analyser = actx.createAnalyser();
+  var playing = false;
+  audio();
+  function audio() {
+
+  analyser.fftSize = 32;
+  actx.smoothingConstant = 1;
+  source.connect(analyser);
+  analyser.connect(actx.destination);
+  var req = new XMLHttpRequest();
+ req.open('GET', 'https://dl.dropboxusercontent.com/u/87705298/Skull%20Fire.mp3', true);
+ req.responseType = 'arraybuffer';
+
+ req.onload = function() {
+   actx.decodeAudioData(req.response, function(buffer) {
+     source.buffer = buffer;
+      source.start(0);
+      playing = true;
+    });
+  };
+   req.send();
+
+   function update() {
+    if (playing) {
+      var aData = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(aData);
+      for(var i = 0; i < analyser.fftSize; i++) {
+
+          changeColor(aData[i],i);
+
+        }
+      }
+    requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
